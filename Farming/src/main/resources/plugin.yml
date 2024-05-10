@@ -1,0 +1,4 @@
+name: Farming
+version: '${version}'
+main: codes.kooper.farming.Farming
+api-version: '1.20'

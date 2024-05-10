@@ -1,0 +1,4 @@
+name: Mining
+version: '${version}'
+main: codes.kooper.mining.Mining
+api-version: '1.20'
