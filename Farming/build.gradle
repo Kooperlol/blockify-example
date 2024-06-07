@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
-    compileOnly 'com.github.Kooperlol:Blockify:1.0.9-beta'
+    compileOnly 'com.github.Kooperlol:Blockify:1.1.5-beta'
 }
 
 def targetJavaVersion = 17

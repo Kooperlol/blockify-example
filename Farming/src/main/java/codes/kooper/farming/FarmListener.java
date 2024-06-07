@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,7 +36,7 @@ public class FarmListener implements Listener {
         players.add(player);
 
         // Create the stage
-        Stage stage = new Stage(player.getUniqueId() + "-farm", Bukkit.getWorld("world"), pos1, pos2, new Audience(players, true));
+        Stage stage = new Stage(player.getUniqueId() + "-farm", Bukkit.getWorld("world"), pos1, pos2, Audience.fromPlayers(players, true));
         Blockify.getInstance().getStageManager().createStage(stage);
 
         // Set the amount of chunks sent to the audience per tick
@@ -58,6 +59,16 @@ public class FarmListener implements Listener {
             // Use stage.sendBlocksToAudience(positions) to send only certain blocks (Shown below)
             stage.sendBlocksToAudience();
         });
+    }
+
+    // Logic to uncache the stage. Implement to fit your needs.
+    // Just make sure eventually delete the stage if there are no players in it.
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        if (Blockify.getInstance().getStageManager().getStage(player.getUniqueId() + "-farm").getAudience().getOnlinePlayers().size() - 1 == 0) {
+            Blockify.getInstance().getStageManager().deleteStage(player.getUniqueId() + "-farm");
+        }
     }
 
     @EventHandler
